@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.novoda.bintray-release'
 
 project.group = 'com.telenor'
 ext {
@@ -39,16 +38,6 @@ android {
         javadocDeps
     }
     testOptions.unitTests.includeAndroidResources true
-
-    publish {
-        userOrg = 'telenordigital'
-        groupId = 'com.telenor'
-        artifactId = 'possumgather'
-        bintrayUser = properties["bintrayUser"]
-        bintrayKey = properties["bintrayKey"]
-        publishVersion = VERSION_NAME
-        dryRun = false
-    }
 
     task sourcesJar(type: Jar) {
         from android.sourceSets.main.java.srcDirs
