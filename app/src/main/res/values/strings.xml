@@ -5,4 +5,7 @@
     <string name="connect_redirect_uri_scheme">telenordigital-connectexample-android</string>
     <string name="read_more"><u>read more</u> </string>
     <string name="no"><u>No, thanks</u> </string>
+    <string name="preference_id">ProtoManTakeMeByTheHand</string>
+    <string name="is_possum_enabled">possum_enabled</string>
+    <string name="authenticated_by_possum">authenticated_by_possum</string>
 </resources>

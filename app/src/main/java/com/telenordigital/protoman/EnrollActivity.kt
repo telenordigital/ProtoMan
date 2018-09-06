@@ -24,12 +24,13 @@ class EnrollActivity : AppCompatActivity() {
         yesButton.setOnClickListener {
             val intent = Intent(this, AgreeToUsePossumActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
         val noLink = findViewById<TextView>(R.id.NoLink)
         noLink.setOnClickListener{
-            val intent = Intent(this, SignedInActivity::class.java)
-            startActivity(intent)
+            //val intent = Intent(this, SignedInActivity::class.java)
+            //startActivity(intent)
             finish()
         }
     }
