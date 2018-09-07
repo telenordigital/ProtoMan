@@ -1,5 +1,6 @@
 package com.telenordigital.protoman
 
+import android.arch.lifecycle.LifecycleOwner
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -27,13 +28,25 @@ class SignedInActivity : AppCompatActivity() {
             return
         }
         val usesPossum = getSharedPreferences(getString(R.string.preference_id), Context.MODE_PRIVATE).getBoolean(getString(R.string.is_possum_enabled),false)
-        val intent = Intent(this, EnrollActivity::class.java)
+        val possumButton = findViewById<Button>(R.id.possum_button)
         if(!usesPossum){
-            startActivity(intent)
+            val intent = Intent(this, EnrollActivity::class.java)
+            possumButton.setText("Start Using Awesome Possum")
+            possumButton.setOnClickListener {
+                startActivity(intent)
+            }
+
+        }else{
+            val intent = Intent(this, PossumInfoActivity::class.java)
+            possumButton.setText("Possum settings")
+            possumButton.setOnClickListener {
+                startActivity(intent)
+            }
         }
 
         val logoutButton = findViewById<Button>(R.id.logout_button)
         logoutButton.setOnClickListener { ConnectSdk.logout() }
+
 
         val userId = findViewById<TextView>(R.id.user_id)
         userId.text = ConnectSdk.getIdToken().subject

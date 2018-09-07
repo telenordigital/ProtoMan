@@ -16,6 +16,12 @@ class GatherActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         val intent = Intent(this, SignedInActivity::class.java)
+        val usesPossum = getSharedPreferences(getString(R.string.preference_id), Context.MODE_PRIVATE).getBoolean(getString(R.string.is_possum_enabled),false)
+        if(!usesPossum){
+            startActivity(intent)
+            return
+        }
+        setContentView(R.layout.activity_gather)
         //TODO: make some unique user ID here instead of a static string
         val possumGather = PossumGather(this,"ProtoMan")
         val startAction = Runnable {
@@ -36,22 +42,10 @@ class GatherActivity : AppCompatActivity() {
         createAnimation(startAction, endAction).start()
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        val usesPossum = getSharedPreferences(getString(R.string.preference_id), Context.MODE_PRIVATE).getBoolean(getString(R.string.is_possum_enabled),false)
-        val intent = Intent(this, SignedInActivity::class.java)
-        if(!usesPossum){
-            startActivity(intent)
-            return
-        }
-        setContentView(R.layout.activity_gather)
-    }
 
     private fun createAnimation(startAction:Runnable, endAction:Runnable):ViewPropertyAnimator {
         val view = findViewById<ImageView>(R.id.gatherAnimation)
-
-        val animation = view.animate().rotation(360f)
+        val animation = view.animate().rotation(view.rotation + 360f)
         animation.startDelay = 300
         animation.duration = 3000
         animation.withStartAction(startAction)
