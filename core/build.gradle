@@ -1,0 +1,45 @@
+apply plugin: 'com.android.library'
+
+project.group = 'com.telenor'
+ext {
+    VERSION_CODE = 19
+    VERSION_NAME = '1.4.2'
+}
+version = VERSION_NAME
+project.version = VERSION_NAME
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        minSdkVersion 17
+        targetSdkVersion 27
+        versionCode VERSION_CODE
+        versionName VERSION_NAME
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        resValue "string", "possum_core_version_name", VERSION_NAME
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    testOptions.unitTests.includeAndroidResources true
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    api 'net.danlew:android.joda:2.9.9.1'
+    api 'com.google.code.gson:gson:2.8.0'
+    api 'com.google.android.gms:play-services-vision:15.0.2'
+    api 'org.tensorflow:tensorflow-android:1.4.0'
+
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.robolectric:robolectric:3.6.1'
+    testImplementation 'org.robolectric:shadows-support-v4:3.3.2'
+    testImplementation 'org.mockito:mockito-core:2.13.0'
+}
