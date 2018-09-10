@@ -39,9 +39,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EnrollActivity" android:theme="@style/Theme.AppCompat.Dialog.Alert"></activity>
-        <activity android:name=".ReadMoreActivity" android:theme="@style/Theme.AppCompat.Dialog.Alert" />
-        <activity android:name=".AgreeToUsePossumActivity" android:theme="@style/Theme.AppCompat.Dialog.Alert" />
+        <activity android:name=".EnrollActivity" android:theme="@style/Theme.AppCompat.Light.Dialog.Alert"></activity>
+        <activity android:name=".ReadMoreActivity" android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
+        <activity android:name=".AgreeToUsePossumActivity" android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
         <activity android:name=".PossumInfoActivity"></activity>
     </application>
 

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.ViewPropertyAnimator
 import android.widget.ImageView
 import android.widget.Toast
@@ -28,7 +29,12 @@ class GatherActivity : AppCompatActivity() {
             possumGather.startListening()
         }
         val endAction = Runnable {
-            possumGather.stopListening()
+            try {
+                possumGather.stopListening()
+            }catch (e: Exception){
+                Log.w("ProtoMan", "Unable to stop listening for user data. Exception was: " +e.toString())
+            }
+
             //TODO: upload data and figure out if you get authenticated or not
             val authenticated = Random().nextBoolean()
             if(authenticated){
