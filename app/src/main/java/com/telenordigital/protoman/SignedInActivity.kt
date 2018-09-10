@@ -27,16 +27,16 @@ class SignedInActivity : AppCompatActivity() {
             goToLogin()
             return
         }
-        val usesPossum = getSharedPreferences(getString(R.string.preference_id), Context.MODE_PRIVATE).getBoolean(getString(R.string.is_possum_enabled),false)
+        val usesPossum = getSharedPreferences(getString(R.string.preference_id), Context.MODE_PRIVATE).getBoolean(getString(R.string.is_possum_enabled), false)
         val possumButton = findViewById<Button>(R.id.possum_button)
-        if(!usesPossum){
+        if (!usesPossum) {
             val intent = Intent(this, EnrollActivity::class.java)
             possumButton.setText("Start Using Awesome Possum")
             possumButton.setOnClickListener {
                 startActivity(intent)
             }
 
-        }else{
+        } else {
             val intent = Intent(this, PossumInfoActivity::class.java)
             possumButton.setText("Possum settings")
             possumButton.setOnClickListener {

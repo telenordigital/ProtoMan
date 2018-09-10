@@ -23,12 +23,12 @@ class PossumInfoActivity : AppCompatActivity() {
         }
 
         val optOutButton = findViewById<Button>(R.id.PossumInfoOptOutButton)
-        optOutButton.setOnClickListener{
+        optOutButton.setOnClickListener {
             val prefs = this.getSharedPreferences(getString(R.string.preference_id), Context.MODE_PRIVATE)
-            prefs.edit().putBoolean(getString(R.string.is_possum_enabled),false).apply()
-            val toast = Toast.makeText(this,"Successfully opted out", Toast.LENGTH_SHORT)
+            prefs.edit().putBoolean(getString(R.string.is_possum_enabled), false).apply()
+            val toast = Toast.makeText(this, "Successfully opted out", Toast.LENGTH_SHORT)
             toast.show()
-            val intent = Intent(this,SignedInActivity::class.java)
+            val intent = Intent(this, SignedInActivity::class.java)
             startActivity(intent)
             finish()
         }
@@ -36,9 +36,9 @@ class PossumInfoActivity : AppCompatActivity() {
         val progressBar = findViewById<ProgressBar>(R.id.PossumInfoProgressBar)
         //TODO: Actually get the progress from the backend
         val progress = Random().nextInt(101)
-        if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N){
-            progressBar.setProgress(progress,false)
-        }else{
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            progressBar.setProgress(progress, false)
+        } else {
             progressBar.progress = progress
         }
 
