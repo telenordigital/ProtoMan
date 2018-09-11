@@ -52,22 +52,15 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onAuthenticationError(errorCode: Int, errString: CharSequence?) {
-//                Toast.makeText(this@MainActivity, "onAuthenticationError $errorCode $errString", Toast.LENGTH_SHORT).show()
             }
 
             override fun onAuthenticationFailed() {
-//                Toast.makeText(this@MainActivity, "onAuthenticationFailed", Toast.LENGTH_SHORT).show()
             }
         }
         BiometricPromptCompat.Builder(this)
                 .setTitle(getString(R.string.biometric_auth_title))
                 .setSubtitle(getString(R.string.biometric_auth_subtitle))
                 .setNegativeButton(getString(R.string.biometric_auth_cancel)) { _, _ ->
-//                    Toast.makeText(
-//                            this,
-//                            "User cancelled biometric authentication",
-//                            Toast.LENGTH_SHORT)
-//                            .show()
                     findViewById<ConnectLoginButton>(R.id.login_button).performClick()
                 }
                 .build()
