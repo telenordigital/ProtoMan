@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EnrollActivity">
+
+    <TextView
+        android:id="@+id/readMoreLink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="160dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="160dp"
+        android:text="@string/read_more"
+        android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ExplainerText" />
+
+    <TextView
+        android:id="@+id/NoLink"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/no"
+        android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintEnd_toEndOf="@+id/YesButton"
+        app:layout_constraintStart_toStartOf="@+id/YesButton"
+        app:layout_constraintTop_toBottomOf="@+id/YesButton" />
+
+    <ImageView
+        android:id="@+id/learningView"
+        android:layout_width="164dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="110dp"
+        android:layout_marginEnd="110dp"
+        android:adjustViewBounds="false"
+        app:layout_constraintBottom_toTopOf="@+id/PitchTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ProductName"
+        app:srcCompat="@drawable/learning" />
+
+    <TextView
+        android:id="@+id/LogoText"
+        android:layout_width="130dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="127dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="128dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:text="Telenor ID"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/ProductName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/ProductName"
+        android:layout_width="85dp"
+        android:layout_height="24dp"
+        android:text="Recognize"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="@+id/LogoText"
+        app:layout_constraintTop_toBottomOf="@+id/LogoText" />
+
+    <TextView
+        android:id="@+id/PitchTitle"
+        android:layout_width="200dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="162dp"
+        android:layout_marginEnd="162dp"
+        android:layout_marginBottom="210dp"
+        android:gravity="center"
+        android:text="Safe and easy"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/learningView"
+        />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="A very secure way of logging in, with no need for passwords"
+        app:layout_constraintEnd_toEndOf="@+id/PitchTitle"
+        app:layout_constraintStart_toStartOf="@+id/PitchTitle"
+        app:layout_constraintTop_toBottomOf="@+id/PitchTitle" />
+
+    <TextView
+        android:id="@+id/ExplainerTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="This is how it works!"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/PitchTitle"
+        app:layout_constraintStart_toStartOf="@+id/PitchTitle"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <TextView
+        android:id="@+id/ExplainerText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="It's magic you know Never believe it's not so It's magic you know Never believe it's not so"
+        app:layout_constraintEnd_toEndOf="@+id/PitchTitle"
+        app:layout_constraintStart_toStartOf="@+id/PitchTitle"
+        app:layout_constraintTop_toBottomOf="@+id/ExplainerTitle" />
+
+
+    <Button
+        android:id="@+id/YesButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="148dp"
+        android:layout_marginEnd="148dp"
+        android:layout_marginBottom="8dp"
+        android:text="YES!"
+        app:layout_constraintBottom_toTopOf="@+id/NoLink"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/readMoreLink" />
+
+</android.support.constraint.ConstraintLayout>
