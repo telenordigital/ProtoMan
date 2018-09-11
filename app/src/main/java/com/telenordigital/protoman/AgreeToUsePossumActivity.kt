@@ -46,8 +46,9 @@ class AgreeToUsePossumActivity : AppCompatActivity() {
     }
 
     private fun activate() {
-        val prefs = this.getSharedPreferences(getString(R.string.preference_id), Context.MODE_PRIVATE)
-        prefs.edit().putBoolean(getString(R.string.is_possum_enabled), true).apply()
+        val editor = this.getSharedPreferences(getString(R.string.preference_id), Context.MODE_PRIVATE).edit()
+        editor.putBoolean(getString(R.string.is_possum_enabled), true).apply()
+        editor.putBoolean(getString(R.string.should_check_possum), true).apply()
         val intent = Intent(this, PossumInfoActivity::class.java)
         startActivity(intent)
         finish()

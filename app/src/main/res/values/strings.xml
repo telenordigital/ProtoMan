@@ -8,4 +8,5 @@
     <string name="preference_id">ProtoManTakeMeByTheHand</string>
     <string name="is_possum_enabled">possum_enabled</string>
     <string name="authenticated_by_possum">authenticated_by_possum</string>
+    <string name="should_check_possum">should_check_possum</string>
 </resources>

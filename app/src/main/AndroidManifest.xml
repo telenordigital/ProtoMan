@@ -3,6 +3,7 @@
     package="com.telenordigital.protoman">
 
     <application
+        android:name=".ProtoManApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -17,6 +18,8 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".SignedInActivity"></activity>
@@ -33,12 +36,7 @@
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
-        <activity android:name=".GatherActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".GatherActivity"></activity>
         <activity android:name=".EnrollActivity" android:theme="@style/Theme.AppCompat.Light.Dialog.Alert"></activity>
         <activity android:name=".ReadMoreActivity" android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
         <activity android:name=".AgreeToUsePossumActivity" android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />

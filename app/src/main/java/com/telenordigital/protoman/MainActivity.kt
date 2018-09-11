@@ -1,5 +1,6 @@
 package com.telenordigital.protoman
 
+import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -10,6 +11,11 @@ import com.telenor.connect.ConnectCallback
 
 
 class MainActivity : AppCompatActivity() {
+
+    override fun onResume() {
+        super.onResume()
+        getSharedPreferences(getString(R.string.preference_id), Context.MODE_PRIVATE).edit().putBoolean(getString(R.string.should_check_possum), false).apply()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +28,7 @@ class MainActivity : AppCompatActivity() {
 
         ConnectSdk.handleRedirectUriCallIfPresent(intent, object : ConnectCallback {
             override fun onSuccess(successData: Any) {
+                getSharedPreferences(getString(R.string.preference_id), Context.MODE_PRIVATE).edit().putBoolean(getString(R.string.should_check_possum), true).apply()
                 goToSignedInActivity()
             }
 

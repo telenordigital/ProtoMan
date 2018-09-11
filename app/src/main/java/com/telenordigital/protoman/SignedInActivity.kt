@@ -12,21 +12,8 @@ import com.telenor.connect.id.ConnectTokensStateTracker
 
 class SignedInActivity : AppCompatActivity() {
 
-    override fun onStop() {
-        super.onStop()
-        finish()
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        ConnectSdk.sdkInitialize(this)
-        setContentView(R.layout.activity_signed_in)
-        val didAuthenticate = intent.extras?.getBoolean(getString(R.string.authenticated_by_possum))
-
-        if (ConnectSdk.getAccessToken() == null || didAuthenticate == false) {
-            goToLogin()
-            return
-        }
+    override fun onResume() {
+        super.onResume()
         val usesPossum = getSharedPreferences(getString(R.string.preference_id), Context.MODE_PRIVATE).getBoolean(getString(R.string.is_possum_enabled), false)
         val possumButton = findViewById<Button>(R.id.possum_button)
         if (!usesPossum) {
@@ -42,6 +29,17 @@ class SignedInActivity : AppCompatActivity() {
             possumButton.setOnClickListener {
                 startActivity(intent)
             }
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        ConnectSdk.sdkInitialize(this)
+        setContentView(R.layout.activity_signed_in)
+
+        if (ConnectSdk.getAccessToken() == null) {
+            goToLogin()
+            return
         }
 
         val logoutButton = findViewById<Button>(R.id.logout_button)
