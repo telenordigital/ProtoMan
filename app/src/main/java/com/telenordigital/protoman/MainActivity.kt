@@ -17,6 +17,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val loginButton = findViewById<ConnectLoginButton>(R.id.login_button)
         loginButton.setLoginScopeTokens("profile openid")
+        loginButton.setAcrValues("2")
+        loginButton.addLoginParameters(hashMapOf("prompt" to "login"))
 
         ConnectSdk.handleRedirectUriCallIfPresent(intent, object : ConnectCallback {
             override fun onSuccess(successData: Any) {
