@@ -14,7 +14,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.telenordigital.protoman"
-        minSdkVersion 17
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -39,6 +39,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.telenor.connect:connect-android-sdk:1.7.1'
     implementation project(':possumgather')
+    implementation 'moe.feng.support.biometricprompt:library:1.0.1'
 }
 repositories {
     mavenCentral()
