@@ -30,6 +30,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gather_progress_bar"
         android:textSize="16dp"
+        android:textColor="#fff"
         />
 
 </android.support.constraint.ConstraintLayout>
