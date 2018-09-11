@@ -1,13 +1,17 @@
 package com.telenordigital.protoman
 
+import android.content.DialogInterface
 import android.content.Intent
+import android.hardware.biometrics.BiometricPrompt
+import android.os.AsyncTask
+import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.telenor.connect.ConnectSdk
 import com.telenor.connect.ui.ConnectLoginButton
 import com.telenor.connect.ConnectCallback
-
+import moe.feng.support.biometricprompt.BiometricPromptCompat
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,6 +24,10 @@ class MainActivity : AppCompatActivity() {
         loginButton.setAcrValues("2")
         loginButton.addLoginParameters(hashMapOf("prompt" to "login"))
 
+        if (!ConnectSdk.hasValidRedirectUrlCall(intent) && ConnectSdk.getAccessToken() != null) {
+            promptForBiometrics()
+        }
+
         ConnectSdk.handleRedirectUriCallIfPresent(intent, object : ConnectCallback {
             override fun onSuccess(successData: Any) {
                 goToSignedInActivity()
@@ -29,6 +37,41 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this@MainActivity, "Failed to sign in", Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    private fun promptForBiometrics() {
+        val authenticationCallback = object : BiometricPromptCompat.IAuthenticationCallback {
+            override fun onAuthenticationSucceeded(result: BiometricPromptCompat.IAuthenticationResult) {
+                if (ConnectSdk.getAccessToken() != null) {
+                    goToSignedInActivity()
+                }
+            }
+
+            override fun onAuthenticationHelp(helpCode: Int, helpString: CharSequence?) {
+                // ignore, help text is showed in dialog automatically
+            }
+
+            override fun onAuthenticationError(errorCode: Int, errString: CharSequence?) {
+//                Toast.makeText(this@MainActivity, "onAuthenticationError $errorCode $errString", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onAuthenticationFailed() {
+//                Toast.makeText(this@MainActivity, "onAuthenticationFailed", Toast.LENGTH_SHORT).show()
+            }
+        }
+        BiometricPromptCompat.Builder(this)
+                .setTitle(getString(R.string.biometric_auth_title))
+                .setSubtitle(getString(R.string.biometric_auth_subtitle))
+                .setNegativeButton(getString(R.string.biometric_auth_cancel)) { _, _ ->
+//                    Toast.makeText(
+//                            this,
+//                            "User cancelled biometric authentication",
+//                            Toast.LENGTH_SHORT)
+//                            .show()
+                    findViewById<ConnectLoginButton>(R.id.login_button).performClick()
+                }
+                .build()
+                .authenticate(authenticationCallback)
     }
 
     private fun goToSignedInActivity() {
