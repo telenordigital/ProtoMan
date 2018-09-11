@@ -38,7 +38,7 @@ class GatherActivity : AppCompatActivity() {
             if (authenticated) {
                 Toast.makeText(applicationContext, "Recognized!", Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(applicationContext, "Intruder alert!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, "Failed to automatically recognize user", Toast.LENGTH_SHORT).show()
             }
             intent.putExtra(getString(R.string.authenticated_by_possum), authenticated)
             startActivity(intent)
