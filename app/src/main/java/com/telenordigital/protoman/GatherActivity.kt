@@ -1,6 +1,5 @@
 package com.telenordigital.protoman
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -34,7 +33,7 @@ class GatherActivity : AppCompatActivity() {
             if (authenticated) {
                 Toast.makeText(applicationContext, "Recognized!", Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(applicationContext, "Intruder alert!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, "Failed to automatically recognize user", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, MainActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
