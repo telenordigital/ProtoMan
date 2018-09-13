@@ -2,30 +2,54 @@ package com.telenordigital.protoman
 
 import android.content.Intent
 import android.os.Bundle
+import android.annotation.TargetApi
+import android.content.Context
+import android.os.Build
+import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import android.view.ViewPropertyAnimator
-import android.widget.ImageView
 import android.widget.Toast
 import com.telenor.possumgather.PossumGather
 import java.util.*
 
 class GatherActivity : AppCompatActivity() {
 
+
+    @TargetApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        val intent = Intent(this, SignedInActivity::class.java)
+        val usesPossum = getSharedPreferences(getString(R.string.preference_id), Context.MODE_PRIVATE)
+                .getBoolean(getString(R.string.is_possum_enabled), false)
+        if (!usesPossum) {
+            startActivity(intent)
+            return
+        }
         setContentView(R.layout.activity_gather)
+        val delay = 300L
+        val duration = 3000L
+        runAwesomePossum(intent, delay, duration)
+    }
+
+    private fun runAwesomePossum(intent: Intent, delay: Long, duration: Long) {
         //TODO: make some unique user ID here instead of a static string
         val possumGather = PossumGather(this, "ProtoMan")
         val startAction = Runnable {
             possumGather.startListening()
         }
-        val endAction = Runnable {
+        val endAction = getEndAction(possumGather, intent)
+        val handler = Handler()
+        handler.postDelayed(startAction, delay)
+        handler.postDelayed(endAction, duration + delay)
+    }
+
+    private fun getEndAction(possumGather: PossumGather, intent: Intent): Runnable {
+        return Runnable {
             try {
                 possumGather.stopListening()
             } catch (e: Exception) {
-                Log.w("ProtoMan", "Unable to stop listening for user data. Exception was: " + e.toString())
+                Log.w("ProtoMan", "Unable to stop listening for user data." +
+                        " Exception was: " + e.toString())
             }
 
             //TODO: upload data and figure out if you get authenticated or not
@@ -41,17 +65,5 @@ class GatherActivity : AppCompatActivity() {
             finish()
 
         }
-        createAnimation(startAction, endAction).start()
-    }
-
-
-    private fun createAnimation(startAction: Runnable, endAction: Runnable): ViewPropertyAnimator {
-        val view = findViewById<ImageView>(R.id.gatherAnimation)
-        val animation = view.animate().rotation(view.rotation + 360f)
-        animation.startDelay = 300
-        animation.duration = 3000
-        animation.withStartAction(startAction)
-        animation.withEndAction(endAction)
-        return animation
     }
 }

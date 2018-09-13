@@ -33,7 +33,6 @@ class MainActivity : AppCompatActivity() {
 
         ConnectSdk.handleRedirectUriCallIfPresent(intent, object : ConnectCallback {
             override fun onSuccess(successData: Any) {
-                getSharedPreferences(getString(R.string.preference_id), Context.MODE_PRIVATE).edit().putBoolean(getString(R.string.should_check_possum), true).apply()
                 goToSignedInActivity()
             }
 
@@ -72,6 +71,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun goToSignedInActivity() {
+        getSharedPreferences(getString(R.string.preference_id), Context.MODE_PRIVATE).edit().putBoolean(getString(R.string.should_check_possum), true).apply()
         val intent = Intent(applicationContext, SignedInActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
