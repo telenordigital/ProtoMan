@@ -17,15 +17,17 @@ class PossumInfoActivity : AppCompatActivity() {
 
         val okButton = findViewById<Button>(R.id.PossumInfoOKButton)
         okButton.setOnClickListener {
-            val intent = Intent(this, SignedInActivity::class.java)
-            startActivity(intent)
+            //val intent = Intent(this, SignedInActivity::class.java)
+            //startActivity(intent)
             finish()
         }
 
         val optOutButton = findViewById<Button>(R.id.PossumInfoOptOutButton)
         optOutButton.setOnClickListener {
-            val prefs = this.getSharedPreferences(getString(R.string.preference_id), Context.MODE_PRIVATE)
-            prefs.edit().putBoolean(getString(R.string.is_possum_enabled), false).apply()
+            val editor = this.getSharedPreferences(getString(R.string.preference_id), Context.MODE_PRIVATE).edit()
+            editor.putBoolean(getString(R.string.is_possum_enabled), false)
+            editor.putBoolean(getString(R.string.should_check_possum), false)
+            editor.apply()
             val toast = Toast.makeText(this, "Successfully opted out", Toast.LENGTH_SHORT)
             toast.show()
             val intent = Intent(this, SignedInActivity::class.java)
