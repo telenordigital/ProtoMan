@@ -47,10 +47,6 @@ class SignedInActivity : AppCompatActivity() {
         val logoutButton = findViewById<Button>(R.id.logout_button)
         logoutButton.setOnClickListener { ConnectSdk.logout() }
 
-
-        val userId = findViewById<TextView>(R.id.user_id)
-        userId.text = ConnectSdk.getIdToken().subject
-
         object : ConnectTokensStateTracker() {
             override fun onTokenStateChanged(hasTokens: Boolean) {
                 if (!hasTokens) {
