@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">ProtoMan</string>
-    <string name="connect_client_id">telenordigital-connectexample-android</string>
-    <string name="connect_redirect_uri">telenordigital-connectexample-android://oauth2callback</string>
-    <string name="connect_redirect_uri_scheme">telenordigital-connectexample-android</string>
+    <string name="connect_client_id">telenordigital-protoman-android</string>
+    <string name="connect_redirect_uri">telenordigital-protoman-android://oauth2callback</string>
+    <string name="connect_redirect_uri_scheme">telenordigital-protoman-android</string>
     <string name="read_more"><u>read more</u> </string>
     <string name="no"><u>No, thanks</u> </string>
     <string name="preference_id">ProtoManTakeMeByTheHand</string>
