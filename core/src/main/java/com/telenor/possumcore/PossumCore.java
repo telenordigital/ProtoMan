@@ -207,7 +207,7 @@ public abstract class PossumCore implements IDetectorChange {
      *
      * @param activity an android activity
      */
-    public void requestNeededPermissions(@NonNull Activity activity) {
+    public static void requestNeededPermissions(@NonNull Activity activity) {
         if (hasMissingPermissions(activity)) {
             ActivityCompat.requestPermissions(activity, missingPermissions(activity).toArray(new String[]{}), Constants.PermissionsRequestCode);
         }
@@ -313,7 +313,7 @@ public abstract class PossumCore implements IDetectorChange {
      * @param context a valid android context
      * @return true if some permissions are missing, false if not
      */
-    public boolean hasMissingPermissions(@NonNull Context context) {
+    public static boolean hasMissingPermissions(@NonNull Context context) {
         return missingPermissions(context).size() > 0;
     }
 

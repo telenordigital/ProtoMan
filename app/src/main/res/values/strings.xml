@@ -12,4 +12,5 @@
     <string name="biometric_auth_title">Confirm identity</string>
     <string name="biometric_auth_subtitle">Please re-authenticate to use the app</string>
     <string name="biometric_auth_cancel">Use CONNECT ID password</string>
+    <string name="api_url">http://localhost:8000/process</string>
 </resources>

@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
-import com.telenor.possumgather.PossumGather
+import com.telenor.possumauth.PossumAuth
 
 class AgreeToUsePossumActivity : AppCompatActivity() {
 
@@ -17,9 +17,8 @@ class AgreeToUsePossumActivity : AppCompatActivity() {
 
         val yesButton = findViewById<Button>(R.id.AgreeToUsePossumYesButton)
         yesButton.setOnClickListener {
-            val possumGather = PossumGather(this, "ProtoMan")
-            if (possumGather.hasMissingPermissions(this)) {
-                possumGather.requestNeededPermissions(this)
+            if (PossumAuth.hasMissingPermissions(this)) {
+                PossumAuth.requestNeededPermissions(this)
             } else {
                 activate()
             }

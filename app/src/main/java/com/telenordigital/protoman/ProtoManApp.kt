@@ -7,7 +7,6 @@ import android.arch.lifecycle.OnLifecycleEvent
 import android.arch.lifecycle.ProcessLifecycleOwner
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 
 class ProtoManApp : Application() {
 

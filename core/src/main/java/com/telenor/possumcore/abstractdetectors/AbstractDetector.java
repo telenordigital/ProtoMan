@@ -45,6 +45,9 @@ public abstract class AbstractDetector implements Runnable {
         JodaTimeAndroid.init(context);
         createDataSet(defaultSet);
         this.context = context.getApplicationContext();
+        if(this.detectorName().equals("image")){
+            Log.v(tag, "AP DEBUG: Creating Image detector. THERE CAN ONLY BE ONE!");
+        }
     }
 
     /**
@@ -64,7 +67,7 @@ public abstract class AbstractDetector implements Runnable {
      * @param dataSet name of the dataSet, "default" is taken for the standard set
      */
     protected void createDataSet(@NonNull String dataSet) {
-        dataStored.put(dataSet, createInternalList(dataSet));
+        this.dataStored.put(dataSet, createInternalList(dataSet));
     }
 
     /**
@@ -152,7 +155,7 @@ public abstract class AbstractDetector implements Runnable {
     @Override
     public void run() {
         isRunning.set(true);
-        for (LimitedConcurrentQueue<JsonArray> data : dataStored.values()) {
+        for (LimitedConcurrentQueue<JsonArray> data : this.dataStored.values()) {
             data.clear();
         }
     }
@@ -164,7 +167,8 @@ public abstract class AbstractDetector implements Runnable {
      * @return a queue containing the data (in jsonArrays) or null if dataSet is not found
      */
     protected LimitedConcurrentQueue<JsonArray> dataSet(@NonNull String dataSet) {
-        return dataStored.get(dataSet);
+
+        return this.dataStored.get(dataSet);
     }
 
     /**
@@ -211,6 +215,10 @@ public abstract class AbstractDetector implements Runnable {
      */
     protected void streamData(JsonArray data) {
         streamData(data, defaultSet);
+        if(this.detectorName().equals("image")){
+            Log.v(tag, "AP DEBUG: Storing image data " + data.size());
+            Log.v(tag,"AP DEBUG: Size of stored data is now " + this.dataStored.values().size());
+        }
     }
 
     protected void streamData(JsonArray data, String dataSet) {
@@ -220,7 +228,10 @@ public abstract class AbstractDetector implements Runnable {
             return;
         }
         set.add(data);
-//        Log.d(tag, "AP:" + data.toString());
+        if(this.detectorName().equals("image")){
+            Log.v(tag,"AP DEBUG: size of set for image on dataset: " + dataSet + " " + set.size());
+        }
+        //Log.d(tag, "AP:" + data.toString());
     }
 
     /**
@@ -247,7 +258,7 @@ public abstract class AbstractDetector implements Runnable {
      * @return a map with dataSet names containing jsonArrays with all the data
      */
     public Map<String, LimitedConcurrentQueue<JsonArray>> dataStored() {
-        return dataStored;
+        return this.dataStored;
     }
 
     /**
@@ -281,12 +292,18 @@ public abstract class AbstractDetector implements Runnable {
      */
     public synchronized JsonArray jsonData(String dataSet) {
         JsonArray outputArr = new JsonArray();
-        synchronized (dataStored) {
-            LimitedConcurrentQueue<JsonArray> data = dataStored.get(dataSet);
+        synchronized (this.dataStored) {
+            LimitedConcurrentQueue<JsonArray> data = this.dataStored.get(dataSet);
             for (JsonArray arr : data) {
                 outputArr.add(arr);
             }
-            dataStored.put(dataSet, new LimitedConcurrentQueue<>(queueLimit(dataSet))); // Clearing the dataSet
+            if(this.detectorName().equals("image")){
+                Log.v(tag,"AP DEBUG: Checking total size of dataStored for image detector " + this.dataStored.values().size());
+            }
+            this.dataStored.put(dataSet, new LimitedConcurrentQueue<>(queueLimit(dataSet))); // Clearing the dataSet
+        }
+        if(this.detectorName().equals("image")){
+            Log.v(tag,"AP DEBUG: Trying to get image data on dataset: " + dataSet + " " + outputArr.size());
         }
         return outputArr;
     }
@@ -296,6 +313,6 @@ public abstract class AbstractDetector implements Runnable {
      * @return a set of the keys
      */
     public synchronized Set<String> jsonKeys() {
-        return new HashSet<>(dataStored.keySet());
+        return new HashSet<>(this.dataStored.keySet());
     }
 }

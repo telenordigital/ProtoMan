@@ -3,8 +3,10 @@
     package="com.telenordigital.protoman">
 
     <uses-permission android:name="android.permission.USE_BIOMETRIC" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:usesCleartextTraffic="true"
         android:name=".ProtoManApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"

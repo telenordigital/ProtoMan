@@ -1,1 +1,1 @@
-include ':app', ':core',':possumgather'
+include ':app', ':core',':possumauth'

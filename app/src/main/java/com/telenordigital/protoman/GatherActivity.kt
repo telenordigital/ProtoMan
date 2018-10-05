@@ -5,11 +5,10 @@ import android.os.Bundle
 import android.annotation.TargetApi
 import android.content.Context
 import android.os.Build
-import android.os.Handler
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.widget.Toast
-import com.telenor.possumgather.PossumGather
+import com.telenor.possumauth.PossumAuth
+import org.json.JSONObject
 import java.util.*
 
 class GatherActivity : AppCompatActivity() {
@@ -18,52 +17,38 @@ class GatherActivity : AppCompatActivity() {
     @TargetApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val intent = Intent(this, SignedInActivity::class.java)
         val usesPossum = getSharedPreferences(getString(R.string.preference_id), Context.MODE_PRIVATE)
                 .getBoolean(getString(R.string.is_possum_enabled), false)
         if (!usesPossum) {
-            startActivity(intent)
-            return
+            finish()
         }
         setContentView(R.layout.activity_gather)
-        val delay = 300L
         val duration = 3000L
-        runAwesomePossum(intent, delay, duration)
+        runAwesomePossum(duration)
     }
 
-    private fun runAwesomePossum(intent: Intent, delay: Long, duration: Long) {
+    private fun runAwesomePossum(duration: Long) {
         //TODO: make some unique user ID here instead of a static string
-        val possumGather = PossumGather(this, "ProtoMan")
-        val startAction = Runnable {
-            possumGather.startListening()
-        }
-        val endAction = getEndAction(possumGather, intent)
-        val handler = Handler()
-        handler.postDelayed(startAction, delay)
-        handler.postDelayed(endAction, duration + delay)
-    }
-
-    private fun getEndAction(possumGather: PossumGather, intent: Intent): Runnable {
-        return Runnable {
-            try {
-                possumGather.stopListening()
-            } catch (e: Exception) {
-                Log.w("ProtoMan", "Unable to stop listening for user data." +
-                        " Exception was: " + e.toString())
+        val userId = "ProtoMan"
+        val threshold = 0.5
+        val possumAuth = PossumAuth.getInstance(this, userId, resources.getString(R.string.api_url), UUID.randomUUID().toString())
+        possumAuth.addAuthListener { message: String?, _: String?, e: Exception? ->
+            var score = 0.0
+            if (e == null) {
+                val json = JSONObject(message)
+                score = (json.get("trustscore") as JSONObject).get("score") as Double
             }
-
-            //TODO: upload data and figure out if you get authenticated or not
-            val authenticated = Random().nextBoolean()
-            if (authenticated) {
-                Toast.makeText(applicationContext, "Recognized!", Toast.LENGTH_SHORT).show()
+            if (score > threshold) {
+                Toast.makeText(applicationContext, "Recognized! score was " + score, Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(applicationContext, "Failed to automatically recognize user", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, "Failed to automatically recognize user. Score was " + score, Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, MainActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
             }
             finish()
-
         }
+        possumAuth.authenticate(duration)
     }
+
 }

@@ -18,7 +18,7 @@ android {
         versionName VERSION_NAME
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        resValue "string", "possum_gather_version_name", VERSION_NAME
+        resValue "string", "possum_auth_version_name", VERSION_NAME
     }
 
     buildTypes {
@@ -37,7 +37,6 @@ android {
         javadocDeps2
         javadocDeps
     }
-    testOptions.unitTests.includeAndroidResources true
 
     task sourcesJar(type: Jar) {
         from android.sourceSets.main.java.srcDirs
@@ -63,8 +62,6 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.amazonaws:aws-android-sdk-cognitoidentityprovider:2.3.2'
-    implementation 'com.amazonaws:aws-android-sdk-s3:2.3.6'
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.robolectric:robolectric:3.6.1'
     testImplementation 'org.robolectric:shadows-support-v4:3.3.2'

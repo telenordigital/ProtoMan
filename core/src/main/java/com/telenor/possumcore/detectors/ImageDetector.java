@@ -227,7 +227,8 @@ public class ImageDetector extends AbstractDetector implements IFaceFound {
 
             // Tensor weights
             try {
-                streamData(tensorFlowInterface.getWeights(scaledOutput, nowTimestamp));
+                JsonArray temp = tensorFlowInterface.getWeights(scaledOutput, nowTimestamp);
+                streamData(temp);
             } catch (Exception e) {
                 PossumCore.addLogEntry(context(), "Failed to stream tensorflow:"+e.getLocalizedMessage());
             }
